@@ -1,0 +1,16 @@
+.tags-list {
+  display: flex;
+  flex-direction: row;
+
+  list-style: none;
+  padding-left: 0;
+}
+
+.tags-list > *{
+  margin-right: 16px;
+}
+
+.tags-list-wrapper {
+  display: flex;
+  flex-direction: row;
+}
