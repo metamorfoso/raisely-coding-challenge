@@ -129,7 +129,21 @@ const AddNewTag = ({
             <button
               className="tag-option-button rounded"
               onClick={handleCreateNew}
+              style={{
+                textTransform: "uppercase",
+              }}
             >
+              <span
+                className="add-new-tag-button"
+                style={{
+                  marginRight: "0.3rem",
+                  height: "1.2rem",
+                  width: "1.2rem",
+                  fontSize: "1rem",
+                }}
+              >
+                +
+              </span>
               Create tag
             </button>
           </li>
