@@ -20,7 +20,14 @@ const Tag = ({ user, tag, onUnassign }) => {
       onMouseLeave={() => setHovering(false)}
       onBlur={() => setHovering(false)}
       className="tag rounded"
-      style={{ backgroundColor: tag.color }}
+      style={{
+        backgroundColor: tag.color,
+        // Border and text color looks like a variant of the color that is defined on the `color` property of a tag.
+        // If `color` is the "primary" color, then this might be considered the "secondary" color. In that case, it
+        // should probably also be handled on the backend.
+        // Here, I've just hard-coded the border for the meantime.
+        borderColor: 'grey',
+      }}
       // tabIndex="0"
     >
       {tag.title}
