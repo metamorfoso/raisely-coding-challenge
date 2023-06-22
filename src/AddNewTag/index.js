@@ -1,4 +1,5 @@
 import * as React from "react";
+import './styles.css'
 
 const AddNewTag = ({
   parentInFocus,
@@ -62,45 +63,61 @@ const AddNewTag = ({
   const showAddNewButtonLabel = parentInFocus && !showInput && addButtonFocused;
 
   return (
-    <>
-      <input
-        aria-label="Enter a tag name to look up or create"
-        type="text"
-        value={inputValue}
-        onChange={handleInputChange}
-        onKeyDown={handleInputKeyDown}
-        tabIndex="0"
-        className={[showInput ? "" : "visually-hidden"].join(" ")}
-        ref={inputRef}
-        disabled={assigningTag}
-      />
-      <button
-        aria-label="Add new tag"
-        name="add-new-tag"
-        tabIndex="0"
-        ref={addNewButtonRef}
-        onClick={handleAddNewTagButtonClick}
-        onMouseEnter={() => setAddButtonFocused(true)}
-        onFocus={() => setAddButtonFocused(true)}
-        onMouseLeave={() => setAddButtonFocused(false)}
-        onBlur={() => setAddButtonFocused(false)}
-        className={[showAddNewButton ? "" : "visually-hidden"].join(" ")}
-      >
-        +
-      </button>
-      <label
-        htmlFor="add-new-tag"
-        className={[showAddNewButtonLabel ? "" : "visually-hidden"].join(" ")}
-      >
-        Add
-      </label>
+    <div>
+      <div className="add-new-tag-button-wrapper">
+        <input
+          aria-label="Enter a tag name to look up or create"
+          type="text"
+          value={inputValue}
+          onChange={handleInputChange}
+          onKeyDown={handleInputKeyDown}
+          tabIndex="0"
+          className={[
+            showInput ? "" : "visually-hidden",
+            "new-tag-input",
+            "rounded",
+          ].join(" ")}
+          ref={inputRef}
+          disabled={assigningTag}
+        />
+        <button
+          aria-label="Add new tag"
+          name="add-new-tag"
+          tabIndex="0"
+          ref={addNewButtonRef}
+          onClick={handleAddNewTagButtonClick}
+          onMouseEnter={() => setAddButtonFocused(true)}
+          onFocus={() => setAddButtonFocused(true)}
+          onMouseLeave={() => setAddButtonFocused(false)}
+          onBlur={() => setAddButtonFocused(false)}
+          className={[
+            showAddNewButton ? "" : "visually-hidden",
+            "add-new-tag-button",
+          ].join(" ")}
+        >
+          +
+        </button>
+        <label
+          htmlFor="add-new-tag"
+          className={[
+            showAddNewButtonLabel ? "" : "visually-hidden",
+            "add-new-tag-button-label",
+          ].join(" ")}
+        >
+          Add
+        </label>
+      </div>
 
       {showAssignableTags && (
-        <ul aria-label="List of existing tags that can be assigned">
+        <ul
+          className="assignable-tags-list"
+          aria-label="List of existing tags that can be assigned"
+        >
           {/* TODO: filter & sort assignable tags to best match current input value */}
           {assignableTags.map(({ uuid, title }) => (
-            <li key={uuid}>
+            <li key={uuid} className="assignable-tags-list-item">
               <button
+                className="tag-option-button rounded"
                 onClick={buildAssignExistingHandler(uuid)}
                 onKeyDown={buildListItemKeyDownHandler(uuid)}
               >
@@ -108,12 +125,17 @@ const AddNewTag = ({
               </button>
             </li>
           ))}
-          <li>
-            <button onClick={handleCreateNew}>Create tag</button>
+          <li className="assignable-tags-list-item">
+            <button
+              className="tag-option-button rounded"
+              onClick={handleCreateNew}
+            >
+              Create tag
+            </button>
           </li>
         </ul>
       )}
-    </>
+    </div>
   );
 };
 

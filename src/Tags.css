@@ -7,10 +7,11 @@
 }
 
 .tags-list > *{
-  margin-right: 16px;
+  margin-right: 1rem;
 }
 
 .tags-list-wrapper {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }

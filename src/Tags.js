@@ -71,7 +71,7 @@ export function UserTags({ user }) {
 
     try {
       setAssigningTag(true);
-      const { tags } = await assignUserTag(user.uuid, tagUuid).catch(handleError);
+      const { tags } = await assignUserTag(user.uuid, tagUuid);
       setUserTags([...tags]);
     } catch (error) {
       handleError(error)
@@ -148,20 +148,10 @@ TODO:
   - border colour spec?
 
 - add new button
-  - show when tags comp hovered
   - hover state (colours + label)
-  - clicked state (text input)
 
 - new tag input
   - suggestions list on key down
-  - create button
-  - on select existing
-    - API call to assign tag to user
-    - update state
-  - on create new tag
-    - API call to create & assign tag
-    - update state
-  - optimistic UI or loading state? (loading state probably safer...)
 
 Throughout:
 - accessibility

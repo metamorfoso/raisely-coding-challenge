@@ -19,7 +19,7 @@ const Tag = ({ user, tag, onUnassign }) => {
       onFocus={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
       onBlur={() => setHovering(false)}
-      className="tag"
+      className="tag rounded"
       style={{ backgroundColor: tag.color }}
       // tabIndex="0"
     >
@@ -36,6 +36,8 @@ const Tag = ({ user, tag, onUnassign }) => {
   );
 };
 
-const TagLoading = () => <li className="tag tag-loading">...</li>;
+const TagLoading = () => (
+  <li className={["tag", "tag-loading", "rounded"].join(" ")}>...</li>
+);
 
 export { Tag, TagLoading }

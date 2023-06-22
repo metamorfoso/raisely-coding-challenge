@@ -123,7 +123,7 @@ export const assignUserTag = (userUuid, tagUuid) => {
       user.tags.push(tagUuid);
       resolve(user);
 
-      // reject(new Error('Failed on the backend')) // uncomment to simulate server error
+      // reject(new Error('Failed on the backend')) // uncomment to simulate server error (and comment out the resolve call above)
     }, latency);
   });
 };
