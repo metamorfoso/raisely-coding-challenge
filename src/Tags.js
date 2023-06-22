@@ -12,6 +12,24 @@ import {
 import { Tag, TagLoading } from './Tag'
 import { AddNewTag } from './AddNewTag'
 
+const handleError = (error) => {
+  console.log('Error handling stub:', error)
+  /*
+  I've assumed here some notification system could be used to alert the user, like a toast.
+
+  Ideally, errors would to be handled explicitly and granularly.
+
+  The message to the user should be clear about:
+  - what happened
+  - why it happened
+  - what they can do next
+
+  e.g. `We couldn't assign the tag ${tag.title} because of ${reasonForError}`
+
+  Where reasonForError might be network-related, or an issue on the backend, etc.
+  */
+}
+
 export function UserTags({ user }) {
   const [allTags, setAllTags] = React.useState(null);
   const [userTags, setUserTags] = React.useState(null);
@@ -51,33 +69,41 @@ export function UserTags({ user }) {
       return;
     }
 
-    setAssigningTag(true);
-    const { tags } = await assignUserTag(user.uuid, tagUuid);
-    setAssigningTag(false);
-    setUserTags([...tags]);
-
-    // TODO: error handling
+    try {
+      setAssigningTag(true);
+      const { tags } = await assignUserTag(user.uuid, tagUuid).catch(handleError);
+      setUserTags([...tags]);
+    } catch (error) {
+      handleError(error)
+    } finally {
+      setAssigningTag(false);
+    }
   };
 
   const handleCreateNewAndAssign = async (title) => {
-    setAssigningTag(true);
-    const newTag = await createTag({ title });
-    const { tags: updatedUserTags } = await assignUserTag(
-      user.uuid,
-      newTag.uuid
-    );
+    try {
+      setAssigningTag(true);
+      const newTag = await createTag({ title });
+      const { tags: updatedUserTags } = await assignUserTag(
+        user.uuid,
+        newTag.uuid
+      );
 
-    setAssigningTag(false);
-    setUserTags([...updatedUserTags]);
-
-    // TODO: error handling
+      setUserTags([...updatedUserTags]);
+    } catch (error) {
+      handleError(error)
+    } finally {
+      setAssigningTag(false);
+    }
   };
 
   const handleUnassign = async (tagUuid) => {
-    const { tags } = await removeUserTag(user.uuid, tagUuid);
-    setUserTags([...tags]);
-
-    // TODO: error handling
+    try {
+      const { tags } = await removeUserTag(user.uuid, tagUuid);
+      setUserTags([...tags]);
+    } catch (error) {
+      handleError(error)
+    }
   };
 
   const assignableTags = allTags.filter((tag) => !userTags.includes(tag.uuid));
