@@ -37,6 +37,7 @@ export function UserTags({ user }) {
   const [pickerInFocus, setPickerInFocus] = React.useState(false);
 
   const [assigningTag, setAssigningTag] = React.useState(false);
+  const [unassigningTagId, setUnassigningTagId] = React.useState()
 
   React.useEffect(() => {
     async function getUserTags() {
@@ -99,10 +100,13 @@ export function UserTags({ user }) {
 
   const handleUnassign = async (tagUuid) => {
     try {
+      setUnassigningTagId(tagUuid)
       const { tags } = await removeUserTag(user.uuid, tagUuid);
       setUserTags([...tags]);
     } catch (error) {
       handleError(error)
+    } finally {
+      setUnassigningTagId('')
     }
   };
 
@@ -124,6 +128,7 @@ export function UserTags({ user }) {
               user={user}
               tag={tag}
               onUnassign={handleUnassign}
+              unassigning={unassigningTagId === tag.uuid}
             />
           ))}
           {assigningTag && <TagLoading />}
