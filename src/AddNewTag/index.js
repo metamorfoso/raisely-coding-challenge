@@ -5,6 +5,7 @@ const AddNewTag = ({
   assignableTags = [],
   onCreateNew,
   onAssignExisting,
+  assigningTag = false,
 }) => {
   // Fetch all tags on mount, if not fetched? Probably not, as this is currently
   // handled in component state by an ancestor component. Ideally there'd be some
@@ -71,6 +72,7 @@ const AddNewTag = ({
         tabIndex="0"
         className={[showInput ? "" : "visually-hidden"].join(" ")}
         ref={inputRef}
+        disabled={assigningTag}
       />
       <button
         aria-label="Add new tag"

@@ -36,4 +36,6 @@ const Tag = ({ user, tag, onUnassign }) => {
   );
 };
 
-export { Tag }
+const TagLoading = () => <li className="tag tag-loading">...</li>;
+
+export { Tag, TagLoading }

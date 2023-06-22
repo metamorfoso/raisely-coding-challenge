@@ -9,27 +9,28 @@ import {
   removeUserTag,
 } from "./api";
 
-import { Tag } from './Tag'
+import { Tag, TagLoading } from './Tag'
 import { AddNewTag } from './AddNewTag'
 
-export function UserTags({ title, user }) {
+export function UserTags({ user }) {
   const [allTags, setAllTags] = React.useState(null);
   const [userTags, setUserTags] = React.useState(null);
   const [userTagObjects, setUserTagObjects] = React.useState(null);
-  const [pickerInFocus, setPickerInFocus] = React.useState(false)
+  const [pickerInFocus, setPickerInFocus] = React.useState(false);
+
+  const [assigningTag, setAssigningTag] = React.useState(false);
 
   React.useEffect(() => {
     async function getUserTags() {
       const [allTags, userTags] = await Promise.all([
         fetchTags(),
-        fetchUserTags(user.uuid)
+        fetchUserTags(user.uuid),
       ]);
       setAllTags(allTags);
       setUserTags(userTags);
     }
     getUserTags();
   }, [user]); // TODO: double check equality comparison of user object...
-
 
   React.useEffect(() => {
     function mapTags() {
@@ -44,33 +45,40 @@ export function UserTags({ title, user }) {
   if (!userTagObjects) return null;
 
   const handleSelectExisting = async (tagUuid) => {
-    const alreadyAssigned = userTags.includes(tagUuid)
+    const alreadyAssigned = userTags.includes(tagUuid);
 
     if (alreadyAssigned) {
-      return
+      return;
     }
 
-    const { tags } = await assignUserTag(user.uuid, tagUuid)
-    setUserTags([...tags])
+    setAssigningTag(true);
+    const { tags } = await assignUserTag(user.uuid, tagUuid);
+    setAssigningTag(false);
+    setUserTags([...tags]);
 
     // TODO: error handling
-  }
+  };
 
   const handleCreateNewAndAssign = async (title) => {
+    setAssigningTag(true);
     const newTag = await createTag({ title });
-    const { tags: updatedUserTags } = await assignUserTag(user.uuid, newTag.uuid)
+    const { tags: updatedUserTags } = await assignUserTag(
+      user.uuid,
+      newTag.uuid
+    );
 
-    setUserTags([...updatedUserTags])
+    setAssigningTag(false);
+    setUserTags([...updatedUserTags]);
 
     // TODO: error handling
-  }
+  };
 
   const handleUnassign = async (tagUuid) => {
-    const { tags } = await removeUserTag(user.uuid, tagUuid)
-    setUserTags([...tags])
+    const { tags } = await removeUserTag(user.uuid, tagUuid);
+    setUserTags([...tags]);
 
     // TODO: error handling
-  }
+  };
 
   const assignableTags = allTags.filter((tag) => !userTags.includes(tag.uuid));
 
@@ -92,12 +100,14 @@ export function UserTags({ title, user }) {
               onUnassign={handleUnassign}
             />
           ))}
+          {assigningTag && <TagLoading />}
         </ul>
         <AddNewTag
           assignableTags={assignableTags}
           parentInFocus={pickerInFocus}
           onCreateNew={handleCreateNewAndAssign}
           onAssignExisting={handleSelectExisting}
+          assigningTag={assigningTag}
         />
       </div>
     </div>
@@ -149,6 +159,10 @@ Questions:
   - just doing via escape key for now...
 - once add new tag button is clicked, should the input not show when mouse leaves the tag picker?
   - assuming no
+- max length for tag title?
+  - not handling currently
+- creating new tag with a title identical to an existing tag
+  - backend should ideally handle that -- client should handle the error
 
 Test assertions to make:
 When:
