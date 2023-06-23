@@ -132,6 +132,7 @@ const AddNewTag = ({
               style={{
                 textTransform: "uppercase",
               }}
+              aria-label="Create tag"
             >
               <span
                 className="add-new-tag-button"

@@ -20,7 +20,7 @@ const latency = 500;
 /**
  * Mocked data storage
  */
-const tags = [
+export const tags = [
   {
     uuid: "aaaa-bbbb-cccc-dddd",
     title: "Donor",
@@ -33,7 +33,7 @@ const tags = [
   }
 ];
 
-const users = [
+export const users = [
   {
     uuid: "1111-2222-3333-4444",
     fullName: "Aizah Wilkerson",
