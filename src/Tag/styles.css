@@ -7,6 +7,17 @@
   border-style: solid;
   border-width: 2px;
 }
+.tag:not(:hover):not(:focus-within)>button {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
 
 .tag-loading {
   background-color: lightgray;
@@ -25,9 +36,10 @@
   background-color: transparent;
   border: 0;
 
-  margin-left: 0.2rem;
+  min-height: 44px;
+  min-width: 44px;
   height: 2rem;
   width: 1.5rem;
-  font-size: 1rem;
-  margin-right: -0.5rem;
+  font-size: 2rem;
+  margin-right: -1rem;
 }

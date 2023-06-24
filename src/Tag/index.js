@@ -4,23 +4,12 @@ import './styles.css'
 import { Spinner } from '../Spinner'
 
 const Tag = ({ tag, onUnassign, unassigning = false }) => {
-  const [hovering, setHovering] = React.useState(false)
-
   const handleUnassign = () => {
     onUnassign(tag.uuid);
-  }
-
-  const removeButtonClassname = [
-    'remove-button',
-    hovering ? '' : 'visually-hidden',
-  ].join(' ')
+  };
 
   return (
     <li
-      onMouseEnter={() => setHovering(true)}
-      onFocus={() => setHovering(true)}
-      onMouseLeave={() => setHovering(false)}
-      onBlur={() => setHovering(false)}
       className="tag rounded"
       style={{
         backgroundColor: tag.color,
@@ -36,11 +25,11 @@ const Tag = ({ tag, onUnassign, unassigning = false }) => {
       <button
         onClick={handleUnassign}
         aria-label={`Unassign tag ${tag.title}`}
-        className={removeButtonClassname}
+        className="remove-button"
         disabled={unassigning}
       >
         <span className="visually-hidden">Unassign tag {tag.title}</span>
-        {unassigning ? <Spinner /> : <>&#10006;</>}
+        {unassigning ? <Spinner /> : <>&#215;</>}
       </button>
     </li>
   );
