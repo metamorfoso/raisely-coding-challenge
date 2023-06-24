@@ -24,53 +24,58 @@ it('renders tags already assigned to the user', async () => {
   expect(initialUserTag).toBeInTheDocument()
 })
 
-it('allows user to assign an existing tag', async () => {
-  const tagToAdd = tags[1].title // already exists in mocked tags, but is not assigned to the user
+describe("assigning tags", () => {
+  beforeEach(async () => {
+    const heading = await screen.findByRole("heading");
+    const outer = heading.parentElement;
 
-  const heading = await screen.findByRole('heading')
-  const outer = heading.parentElement
-
-  await userEvent.hover(outer)
-
-  const addButton = await screen.findByRole('button', { name: 'Add new tag' })
-  await userEvent.click(addButton)
-
-  const input = await screen.findByRole('textbox', { name: 'Enter a tag name to look up or create' })
-  await userEvent.type(input, tagToAdd)
-
-  const addExistingTagButton = await screen.findByRole('button', { name: tagToAdd })
-  await userEvent.click(addExistingTagButton)
-
-  const tagList = await screen.findByRole('list')
-  const addedTag = await within(tagList).findByText(tagToAdd)
-
-  expect(addedTag).toBeInTheDocument()
-})
-
-it('allows user to create and assign a new tag', async () => {
-  const tagToAdd = 'Organiser' // does not exist in mocked tags (and is not assigned to the user)
-
-  const heading = await screen.findByRole('heading')
-  const outer = heading.parentElement
-
-  await userEvent.hover(outer)
-
-  const addButton = await screen.findByRole('button', { name: 'Add new tag' })
-  await userEvent.click(addButton)
-
-  const input = await screen.findByRole('textbox', { name: 'Enter a tag name to look up or create' })
-  await userEvent.type(input, tagToAdd)
-
-  const createNewTagButton = await screen.findByRole('button', { name: 'Create tag' })
-  await userEvent.click(createNewTagButton)
-
-  const tagList = await screen.findByRole('list')
-  const addedTag = await within(tagList).findByText(tagToAdd, undefined, {
-    timeout: 5000,
+    await userEvent.hover(outer);
+    const addButton = await screen.findByRole("button", {
+      name: "Add new tag",
+    });
+    await userEvent.click(addButton);
   });
 
-  expect(addedTag).toBeInTheDocument()
-})
+  it("allows user to assign an existing tag", async () => {
+    const tagToAdd = tags[1].title; // already exists in mocked tags, but is not assigned to the user
+
+    const input = await screen.findByRole("textbox", {
+      name: "Enter a tag name to look up or create",
+    });
+    await userEvent.type(input, tagToAdd);
+
+    const addExistingTagButton = await screen.findByRole("button", {
+      name: tagToAdd,
+    });
+    await userEvent.click(addExistingTagButton);
+
+    const tagList = await screen.findByRole("list");
+    const addedTag = await within(tagList).findByText(tagToAdd);
+
+    expect(addedTag).toBeInTheDocument();
+  });
+
+  it("allows user to assign a new tag", async () => {
+    const tagToAdd = "Organiser"; // does not exist in mocked tags (and is not assigned to the user)
+
+    const input = await screen.findByRole("textbox", {
+      name: "Enter a tag name to look up or create",
+    });
+    await userEvent.type(input, tagToAdd);
+
+    const createNewTagButton = await screen.findByRole("button", {
+      name: "Create tag",
+    });
+    await userEvent.click(createNewTagButton);
+
+    const tagList = await screen.findByRole("list");
+    const addedTag = await within(tagList).findByText(tagToAdd, undefined, {
+      timeout: 5000,
+    });
+
+    expect(addedTag).toBeInTheDocument();
+  });
+});
 
 it('allows user to unassign a tag', async () => {
   const tagToUnassign = tags[1].title // assigned to the user in mocked data
