@@ -1,7 +1,9 @@
 .add-new-tag-button-wrapper {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+
+  min-width: 160px;
 }
 
 .add-new-tag-button {
@@ -16,14 +18,18 @@
   justify-content: center;
   cursor: pointer;
   color: #696896;
-  border: 2px solid #cbcbdd;
+  border: 2px solid transparent;
   box-sizing: content-box;
+  background-color: #eae9f1;
+}
+.add-new-tag-button:hover {
+  border: 2px solid #cbcbdd;
 }
 
 .add-new-tag-button-label {
   color: #8b82b1;
   text-transform: uppercase;
-  margin-left: 1rem;
+  margin-left: 0.5rem;
 }
 
 .new-tag-input {
@@ -61,7 +67,7 @@
   height: 2rem;
   width: 100%;
 
-  color: #666395;
+  color: #a2a2ba;
   background-color: transparent;
   border: 0;
 
@@ -69,7 +75,9 @@
 }
 .tag-option-button:hover {
   background-color: #f5f1ff;
+  color: #666395;
 }
 .tag-option-button:focus {
   background-color: #f5f1ff;
+  color: #666395;
 }

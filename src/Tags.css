@@ -1,6 +1,11 @@
+.container {
+  padding: 1rem;
+}
+
 .tags-list {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 
   list-style: none;
   padding-left: 0;
@@ -8,10 +13,19 @@
 
 .tags-list > *{
   margin-right: 1rem;
+  margin-bottom: 1rem;
 }
 
 .tags-list-wrapper {
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+.tags-list-wrapper>* {
+  margin: 1rem 0;
+}
+
+.heading {
+  text-align: left;
+  margin: 0;
 }

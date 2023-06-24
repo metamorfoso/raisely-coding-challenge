@@ -118,8 +118,9 @@ export function UserTags({ user }) {
       onFocus={() => setPickerInFocus(true)}
       onMouseLeave={() => setPickerInFocus(false)}
       onBlur={() => setPickerInFocus(false)}
+      className="container"
     >
-      <h3>Tags</h3>
+      <h3 className="heading">Tags</h3>
       <div className="tags-list-wrapper">
         <ul className="tags-list">
           {userTagObjects.map((tag) => (
@@ -132,39 +133,24 @@ export function UserTags({ user }) {
             />
           ))}
           {assigningTag && <TagLoading />}
+
+          <li>
+            <AddNewTag
+              assignableTags={assignableTags}
+              parentInFocus={pickerInFocus}
+              onCreateNew={handleCreateNewAndAssign}
+              onAssignExisting={handleSelectExisting}
+              assigningTag={assigningTag}
+            />
+          </li>
         </ul>
-        <AddNewTag
-          assignableTags={assignableTags}
-          parentInFocus={pickerInFocus}
-          onCreateNew={handleCreateNewAndAssign}
-          onAssignExisting={handleSelectExisting}
-          assigningTag={assigningTag}
-        />
       </div>
     </div>
   );
 }
 
 /*
-TODO:
-- <UserTags> styling
-- <Tag> styling
-  - text colour spec? (accessibility concern too)
-  - border colour spec?
-
-- add new button
-  - hover state (colours + label)
-
-- new tag input
-  - suggestions list on key down
-
-Throughout:
-- accessibility
-  - semantic HTML
-- testing
-  - install react testing library?
-
-Things I'm not doing:
+Things I'm not doing (in terms of project setup):
 - changing project language/framework (e.g. not porting to TS)
   - keeping createreactapp defaults as much as I can
 - major changes to architecture & tooling
@@ -178,12 +164,15 @@ Questions:
   - what happens to the hover interaction on mobile?
 - is there an intended way to cancel adding a new tag (make the input go away)?
   - just doing via escape key for now...
-- once add new tag button is clicked, should the input not show when mouse leaves the tag picker?
-  - assuming no
+- once add new tag button is clicked, should the input hide when mouse leaves the tag picker?
+  - assuming no, input stays even if mouse leaves the tag picker
 - max length for tag title?
   - not handling currently
+  - IRL would ask the designer
 - creating new tag with a title identical to an existing tag
   - backend should ideally handle that -- client should handle the error
+- what happens when more tags are added than can fit on one line?
+  - assuming just wrap to next line
 
 Test assertions to make:
 When:
