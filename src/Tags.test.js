@@ -44,6 +44,10 @@ describe("assigning tags", () => {
     });
     await userEvent.type(input, tagToAdd);
 
+    const assignableTagsList = await screen.findByRole("list", {
+      name: "List of existing tags that can be assigned",
+    });
+
     const addExistingTagButton = await screen.findByRole("button", {
       name: tagToAdd,
     });
@@ -52,7 +56,9 @@ describe("assigning tags", () => {
     const tagList = await screen.findByRole("list");
     const addedTag = await within(tagList).findByText(tagToAdd);
 
-    expect(addedTag).toBeInTheDocument();
+    expect(addedTag).toBeVisible();
+    expect(assignableTagsList).not.toBeVisible();
+    expect(input).toHaveClass("visually-hidden");
   });
 
   it("allows user to assign a new tag", async () => {
@@ -62,6 +68,10 @@ describe("assigning tags", () => {
       name: "Enter a tag name to look up or create",
     });
     await userEvent.type(input, tagToAdd);
+
+    const assignableTagsList = await screen.findByRole("list", {
+      name: "List of existing tags that can be assigned",
+    });
 
     const createNewTagButton = await screen.findByRole("button", {
       name: "Create tag",
@@ -73,7 +83,9 @@ describe("assigning tags", () => {
       timeout: 5000,
     });
 
-    expect(addedTag).toBeInTheDocument();
+    expect(addedTag).toBeVisible();
+    expect(assignableTagsList).not.toBeVisible();
+    expect(input).toHaveClass("visually-hidden");
   });
 
   it("does not show tags that are already assigned, in the list of assignable tags", async () => {

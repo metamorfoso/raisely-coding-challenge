@@ -173,10 +173,5 @@ Questions:
   - backend should ideally handle that -- client should handle the error
 - what happens when more tags are added than can fit on one line?
   - assuming just wrap to next line
-
-Test assertions to make:
-- suggestions panel closes
-- input goes away
-- new tag appears
 */
 
