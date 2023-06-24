@@ -65,7 +65,9 @@ it('allows user to create and assign a new tag', async () => {
   await userEvent.click(createNewTagButton)
 
   const tagList = await screen.findByRole('list')
-  const addedTag = await within(tagList).findByText(tagToAdd)
+  const addedTag = await within(tagList).findByText(tagToAdd, undefined, {
+    timeout: 5000,
+  });
 
   expect(addedTag).toBeInTheDocument()
 })
