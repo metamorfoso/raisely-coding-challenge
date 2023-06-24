@@ -175,17 +175,8 @@ Questions:
   - assuming just wrap to next line
 
 Test assertions to make:
-When:
-On select existing:
-- should not be able to assign if already assigned
-
-On create new:
-- should not be able to create one with the same name? (should probably be enforced on the backend)
-
-On both:
 - suggestions panel closes
 - input goes away
 - new tag appears
-
 */
 

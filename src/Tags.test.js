@@ -75,6 +75,28 @@ describe("assigning tags", () => {
 
     expect(addedTag).toBeInTheDocument();
   });
+
+  it("does not show tags that are already assigned, in the list of assignable tags", async () => {
+    const tagToAdd = tags[0].title; // exists in mocked tags, and is already assigned to the user
+
+    const input = await screen.findByRole("textbox", {
+      name: "Enter a tag name to look up or create",
+    });
+    await userEvent.type(input, tagToAdd);
+
+    const assignableTagsList = await screen.findByRole("list", {
+      name: "List of existing tags that can be assigned",
+    });
+
+    const addExistingTagButton = within(assignableTagsList).queryByRole(
+      "button",
+      {
+        name: tagToAdd,
+      }
+    );
+
+    expect(addExistingTagButton).not.toBeInTheDocument();
+  });
 });
 
 it('allows user to unassign a tag', async () => {
