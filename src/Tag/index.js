@@ -19,7 +19,6 @@ const Tag = ({ tag, onUnassign, unassigning = false }) => {
         // Here, I've just hard-coded the border for the meantime.
         borderColor: "grey",
       }}
-      // tabIndex="0"
     >
       {tag.title}
       <button

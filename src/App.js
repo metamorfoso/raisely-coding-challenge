@@ -2,14 +2,7 @@ import "./styles.css";
 
 import * as React from "react";
 
-import {
-  fetchTags,
-  createTag,
-  fetchUser,
-  fetchUserTags,
-  assignUserTag,
-  removeUserTag
-} from "./api";
+import { fetchUser } from "./api";
 
 import { UserTags } from "./Tags";
 

@@ -38,14 +38,12 @@ const AddNewTag = ({
 
   const buildAssignExistingHandler = (uuid) => () => {
     setInputValue("");
-    // addNewButtonRef.current?.focus()
     setShowInput(false);
     onAssignExisting(uuid);
   };
 
   const handleCreateNew = () => {
     setInputValue("");
-    // addNewButtonRef.current?.focus()
     setShowInput(false);
     onCreateNew(inputValue);
   };
