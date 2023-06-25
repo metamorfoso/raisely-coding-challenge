@@ -1,5 +1,5 @@
 import * as React from "react";
-import './Tags.css'
+import './styles.css'
 
 import {
   fetchTags,
@@ -7,7 +7,7 @@ import {
   assignUserTag,
   createTag,
   removeUserTag,
-} from "./api";
+} from "../api";
 
 import { Tag, TagLoading } from './Tag'
 import { AddNewTag } from './AddNewTag'

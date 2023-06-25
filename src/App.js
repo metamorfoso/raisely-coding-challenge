@@ -4,7 +4,7 @@ import * as React from "react";
 
 import { fetchUser } from "./api";
 
-import { UserTags } from "./Tags";
+import { UserTags } from "./UserTags";
 
 function UserProfile({ uuid }) {
   const [user, setUser] = React.useState(null);

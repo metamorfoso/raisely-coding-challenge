@@ -4,7 +4,7 @@ An implementation of the 'tag picker' component, as per [the brief](https://rais
 
 ## Approach
 
-I've made a few assumptions in implementing my solution. I thought it best to clarify them here, rather than letting them remain implicit.
+I've made a few assumptions in implementing my solution. I thought it best to note them here.
 
 In general, I've opted to treat the starting template as an existing codebase. So I've kept changes to project setup, structure and tooling to a minimum. For changes I did make, the intention was they would directly help me with the areas of focus emphasised in the brief: correctness, quality, and accessibility.
 

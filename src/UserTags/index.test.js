@@ -4,9 +4,9 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event';
 import { waitForElementToBeRemoved, within } from "@testing-library/dom";
 
-import { tags, users } from './api'
+import { tags, users } from '../api'
 
-import { UserTags } from './Tags'
+import { UserTags } from '.'
 
 const user = users[0]
 
