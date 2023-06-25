@@ -63,7 +63,8 @@ I've made a few assumptions on points that weren't explicit in the brief:
 - Too many tags to fit on one line:
   - simply wraping them to next line (not scrolling horizontally)
 - Mobile in general:
-  - Assumed anything that happens on hover on desktop would be done via focus on mobile (but having second thoughts... perhaps would be better as always visible on mobile)
+  - elements always visible (when they are only visible on hover on desktop)
+  - implemented in terms of whether the device has a "fine" pointer or not
 
 In 'real life', I expect a lot of this would come up in discussion during planing and refinement/estimation phases.
 

@@ -30,6 +30,14 @@ const handleError = (error) => {
   */
 }
 
+const getHasFinePointer = () => {
+  if (!window || typeof window?.matchMedia !== "function") {
+    return false;
+  }
+
+  return window.matchMedia("(pointer: fine)")?.matches;
+};
+
 export function UserTags({ user }) {
   const [allTags, setAllTags] = React.useState(null);
   const [userTags, setUserTags] = React.useState(null);
@@ -37,7 +45,9 @@ export function UserTags({ user }) {
   const [pickerInFocus, setPickerInFocus] = React.useState(false);
 
   const [assigningTag, setAssigningTag] = React.useState(false);
-  const [unassigningTagId, setUnassigningTagId] = React.useState()
+  const [unassigningTagId, setUnassigningTagId] = React.useState();
+
+  const hasFinePointer = getHasFinePointer();
 
   React.useEffect(() => {
     async function getUserTags() {
@@ -75,7 +85,7 @@ export function UserTags({ user }) {
       const { tags } = await assignUserTag(user.uuid, tagUuid);
       setUserTags([...tags]);
     } catch (error) {
-      handleError(error)
+      handleError(error);
     } finally {
       setAssigningTag(false);
     }
@@ -92,7 +102,7 @@ export function UserTags({ user }) {
 
       setUserTags([...updatedUserTags]);
     } catch (error) {
-      handleError(error)
+      handleError(error);
     } finally {
       setAssigningTag(false);
     }
@@ -100,13 +110,13 @@ export function UserTags({ user }) {
 
   const handleUnassign = async (tagUuid) => {
     try {
-      setUnassigningTagId(tagUuid)
+      setUnassigningTagId(tagUuid);
       const { tags } = await removeUserTag(user.uuid, tagUuid);
       setUserTags([...tags]);
     } catch (error) {
-      handleError(error)
+      handleError(error);
     } finally {
-      setUnassigningTagId('')
+      setUnassigningTagId("");
     }
   };
 
@@ -137,7 +147,7 @@ export function UserTags({ user }) {
           <li>
             <AddNewTag
               assignableTags={assignableTags}
-              parentInFocus={pickerInFocus}
+              parentInFocus={hasFinePointer ? pickerInFocus : true}
               onCreateNew={handleCreateNewAndAssign}
               onAssignExisting={handleSelectExisting}
               assigningTag={assigningTag}
