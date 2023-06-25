@@ -111,18 +111,22 @@ describe("assigning tags", () => {
   });
 });
 
-it('allows user to unassign a tag', async () => {
-  const tagToUnassign = tags[1].title // assigned to the user in mocked data
+it("allows user to unassign a tag", async () => {
+  const tagToUnassign = tags[1].title; // assigned to the user in mocked data
+  const tagToRemain = tags[0].title;
 
-  const tagList = await screen.findByRole('list')
+  const tagList = await screen.findByRole("list");
 
-  const targetTag = await within(tagList).findByText(tagToUnassign)
-  await userEvent.hover(targetTag)
+  const targetTag = await within(tagList).findByText(tagToUnassign);
+  await userEvent.hover(targetTag);
 
-  const removeButton = await screen.findByRole('button', { name: `Unassign tag ${tagToUnassign}` })
-  await userEvent.click(removeButton)
+  const removeButton = await screen.findByRole("button", {
+    name: `Unassign tag ${tagToUnassign}`,
+  });
+  await userEvent.click(removeButton);
 
-  await waitForElementToBeRemoved(targetTag)
+  await waitForElementToBeRemoved(targetTag);
 
-  expect(within(tagList).queryByText(tagToUnassign)).not.toBeInTheDocument()
-})
+  expect(within(tagList).queryByText(tagToUnassign)).not.toBeInTheDocument();
+  expect(within(tagList).getByText(tagToRemain)).toBeInTheDocument();
+});
