@@ -148,30 +148,3 @@ export function UserTags({ user }) {
     </div>
   );
 }
-
-/*
-Things I'm not doing (in terms of project setup):
-- changing project language/framework (e.g. not porting to TS)
-  - keeping createreactapp defaults as much as I can
-- major changes to architecture & tooling
-  - e.g. not changing from CSS to SASS/SCSS
-  - just using default stylesheet configuration for static styles + inline react styles for more complex dynamic styles
-  - not going to introduce anything like redux for central state management
-  - not going to introduce anything to help manage REST api calls
-
-Questions:
-- is mobile support in scope?
-  - what happens to the hover interaction on mobile?
-- is there an intended way to cancel adding a new tag (make the input go away)?
-  - just doing via escape key for now...
-- once add new tag button is clicked, should the input hide when mouse leaves the tag picker?
-  - assuming no, input stays even if mouse leaves the tag picker
-- max length for tag title?
-  - not handling currently
-  - IRL would ask the designer
-- creating new tag with a title identical to an existing tag
-  - backend should ideally handle that -- client should handle the error
-- what happens when more tags are added than can fit on one line?
-  - assuming just wrap to next line
-*/
-
