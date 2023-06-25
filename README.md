@@ -57,9 +57,10 @@ I've made a few assumptions on points that weren't explicit in the brief:
   - a title identical to an existing tag
     - backend should ideally handle that -- client should handle the error
 - Assigning existing tags:
-  - naively rendering all tags as suggestions, when user starts typing
-  - not narrowing down based on user input
-  - would need to clarify on the strategy/algorithm that would best serve the situation
+  - narrowing down suggested tags based on user input (filtering by whether tag title includes input)
+  - not limiting the size of the list of assignable tags -- not truncating, paginating, or making the node scrollable
+  - one of these approaches to limit the list might become necessary if there are a lot of tags
+  - if there are *really* a lot of tags, a query may need to be dispatched to the backend on user input (and some refactoring of data fetching and state may need to be done)
 - Too many tags to fit on one line:
   - simply wraping them to next line (not scrolling horizontally)
 - Mobile in general:

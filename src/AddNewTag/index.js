@@ -57,7 +57,7 @@ const AddNewTag = ({
 
   const showAssignableTags = inputValue?.length > 0;
 
-  const showAddNewButton = parentInFocus && !showInput
+  const showAddNewButton = parentInFocus && !showInput;
   const showAddNewButtonLabel = parentInFocus && !showInput && addButtonFocused;
 
   return (
@@ -111,18 +111,19 @@ const AddNewTag = ({
           className="assignable-tags-list"
           aria-label="List of existing tags that can be assigned"
         >
-          {/* TODO: filter & sort assignable tags to best match current input value */}
-          {assignableTags.map(({ uuid, title }) => (
-            <li key={uuid} className="assignable-tags-list-item">
-              <button
-                className="tag-option-button rounded"
-                onClick={buildAssignExistingHandler(uuid)}
-                onKeyDown={buildListItemKeyDownHandler(uuid)}
-              >
-                {title}
-              </button>
-            </li>
-          ))}
+          {assignableTags
+            .filter(({ title }) => title.includes(inputValue))
+            .map(({ uuid, title }) => (
+              <li key={uuid} className="assignable-tags-list-item">
+                <button
+                  className="tag-option-button rounded"
+                  onClick={buildAssignExistingHandler(uuid)}
+                  onKeyDown={buildListItemKeyDownHandler(uuid)}
+                >
+                  {title}
+                </button>
+              </li>
+            ))}
           <li className="assignable-tags-list-item">
             <button
               className="tag-option-button rounded"
